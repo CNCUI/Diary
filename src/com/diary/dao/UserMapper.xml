@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 用户 -->
+<mapper namespace="UserMapper">
+ 	<!-- 登陆 -->
+	<select id="login" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from  user where username = #{username} and password = #{password}
+	</select>
+ 	<!--管理端 查询用户列表 -->
+	<select id="findUserPageList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from  user order by create_time
+	</select>
+	
+	<insert id="saveUser" parameterType="java.util.HashMap">
+		insert into user(id,username,password,state,create_time,realname,phone,email,address) 
+		values(UUID(),#{username},"123456","1",NOW(),#{realname},#{phone},#{email},#{address})
+	</insert>
+	
+	<update id="updateUser" parameterType="java.util.HashMap" >
+		update user set 
+		username=#{username},
+		realname=#{realname},
+		phone=#{phone},
+		email=#{email},
+		address=#{address}
+		where id = #{user_id}
+	</update>
+	
+	<delete id="deleteUser" parameterType="java.util.HashMap">
+		delete from user where id in
+		<foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<select id="findUser" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from  user where 1=1
+		<if test="username != null and username != '' ">
+			and username=#{username}
+		</if>
+		<if test="myid != null and myid != '' ">
+			and id !=#{myid}
+		</if>
+	</select>
+	<!-- 管理端  查询订单列表 -->
+	<select id="findOrderPageList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT
+			ordering.*,
+			GROUP_CONCAT(CONCAT(food.name,'(',order_food.num),')') AS "foods"
+		FROM
+			ordering
+		LEFT JOIN order_food ON ordering.id = order_food.order_id
+		LEFT JOIN food ON order_food.food_id = food.id
+		GROUP BY
+			ordering.id
+	</select>
+	<!-- 管理端  修改订单状态 -->
+	<update id="updateOrderState" parameterType="java.util.HashMap">
+		update ordering set state=#{state} where id in
+		<foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	<!-- 管理端 删除订单状态 -->
+	<delete id="delOrder" parameterType="java.util.HashMap">
+		delete from ordering where id in
+		<foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 管理端  查询菜类型 -->
+	<select id="findTypePageList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT * from type
+	</select>
+	<!-- 管理端  查询菜品 -->
+	<select id="findFoodManegePageList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT
+			food.*, GROUP_CONCAT(type.code) as "typeCode",
+			GROUP_CONCAT(type. NAME) AS "typeName",
+			date_format(food.create_time,'%Y-%c-%d %h:%i:%s') as "createtime",
+			date_format(food.update_time,'%Y-%c-%d %h:%i:%s') as "updatetime"
+		FROM
+			food
+		LEFT JOIN food_type ON food.id = food_type.food_id
+		LEFT JOIN type ON food_type.type_id = type.code
+		GROUP BY
+			food.id
+	</select>
+	<select id="findType" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT * from type where 1=1
+		<if test="code != null and code != '' ">
+			and code=#{code}
+		</if>
+		<if test="name != null and name != '' ">
+			and name=#{name}
+		</if>
+		<if test="myid != null and myid != '' ">
+			and id !=#{myid}
+		</if>
+	</select>
+	
+	<insert id="addType" parameterType="java.util.HashMap">
+		insert into type(id,code,name)
+		values(UUID(),#{code},#{name})
+	</insert>
+	<update id="updateType" parameterType="java.util.HashMap">
+		update type set code=#{code},name=#{name} where id=#{type_id}
+	</update>
+	<delete id="delType">
+		delete from type where id in
+		<foreach collection="type_ids" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<insert id="saveOrder" parameterType="java.util.HashMap">
+		insert into ordering(id,num,sumprice,user_id,user_name,phone,address,remarks,create_time,state) 
+		values(UUID(),#{num},#{sumprice},#{user_id},#{user_name},#{phone},#{address},#{remarks},NOW(),'1')
+	</insert>
+	<insert id="saveOrderFood" parameterType="java.util.HashMap">
+		insert into order_food(id,order_id,food_id) 
+		values(UUID(),#{order_id},#{food_id})
+	</insert>
+	<update id="updateOrder" parameterType="java.util.HashMap" >
+		update ordering set state = #{state} where id=#{id}
+	</update>
+	<delete id="deleteOrder" parameterType="java.util.HashMap">
+		delete from ordering where id in
+		<foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	
+							<!-- front -->
+	
+	<select id="findFoodPageList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT
+			*
+		FROM
+			food
+		LEFT JOIN food_type ON food.id = food_type.food_id
+		LEFT JOIN type ON food_type.type_id = type.code
+		WHERE
+			type. NAME = #{type}
+	</select>
+	
+	<!-- 我的订单 -->
+	<select id="findMyOrderList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT
+			ordering.*,
+			GROUP_CONCAT(CONCAT(food.name,'(',order_food.num),')') AS "foods"
+		FROM
+			food
+		INNER JOIN order_food ON food.id = order_food.food_id
+		INNER JOIN ordering ON order_food.order_id = ordering.id
+		where ordering.user_id = #{user_id}
+	</select>
+	
+	<!-- 修改密码 -->
+	<update id="updatePassword" parameterType="java.util.HashMap">
+		update user set password=#{password} where username=#{username}
+	</update>
+</mapper>

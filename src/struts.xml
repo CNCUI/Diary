@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.configuration.xmlreload" value="true" />
+	<!-- 当struts配置文件修改时是否自动加载 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 开发模式下打印详细的错误信息 -->
+	<constant name="struts.ui.theme" value="xhtml" />
+	<constant name="struts.objectFactory" value="spring" />
+	<package name="diary" extends="struts-default" namespace="/">
+		<action name="addDiary" class="diaryAction" method="addDiary">
+			 <interceptor-ref name="defaultStack"/>
+			 <interceptor-ref name="token" />
+			  <result name="invalid.token">/add.jsp</result>
+			<result name="success">/add.jsp</result>
+		</action>
+		<action name="findPage" class="diaryAction" method="findAll">
+			<result name="success" type="redirect">/index.jsp</result>
+		</action>
+		<action name="findOne" class="diaryAction" method="findOne">
+			<result name="success" type="redirect">/info.jsp</result>
+		</action>
+		<action name="updateFindOne" class="diaryAction" method="updateFindOne">
+			<result name="success" type="redirect">/update.jsp</result>
+		</action>
+		<action name="update" class="diaryAction" method="update">
+			<interceptor-ref name="defaultStack"/>
+			 <interceptor-ref name="token" />
+			  <result name="invalid.token">index.jsp</result>
+			<result name="success" type="redirect">findPage.action</result>
+		</action>
+		<action name="del" class="diaryAction" method="del">
+			<result name="success" type="redirect">findPage.action</result>
+		</action>
+		
+		<action name="login_*" class="com.loginAction" method="{1}">
+			<result name="success">/WEB-INF/jsp/index.jsp</result>
+			<result name="login">/WEB-INF/jsp/login.jsp</result>
+		</action>
+	</package>
+	<package name="sys" extends="struts-default" namespace="/sys">
+		<interceptors>
+            <interceptor name="weixinInterceptor" class="weixin.WxInterceptor" />
+            <interceptor-stack name="weixinStack">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="weixinInterceptor" />
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="weixinStack" />
+		<global-results>
+            <result name="transfer">/WEB-INF/jsp/redirect.jsp</result>
+            <result name="wxerror">/WEB-INF/jsp/wxerror.jsp</result>
+            <result name="notintime">/WEB-INF/jsp/notintime.jsp</result>
+        </global-results>
+		<action name="manager_*" class="com.ManagerAction" method="{1}">
+			<result name="success">/WEB-INF/jsp/shouye.jsp</result>
+			<result name="user">/WEB-INF/jsp/userManager.jsp</result>
+			<result name="order">/WEB-INF/jsp/orderManager.jsp</result>
+			<result name="type">/WEB-INF/jsp/typeManager.jsp</result>
+			<result name="food">/WEB-INF/jsp/foodManager.jsp</result>
+		</action>
+	</package>
+</struts>

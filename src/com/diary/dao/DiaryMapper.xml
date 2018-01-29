@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 用户 -->
+<mapper namespace="com.diary.dao.DiaryDao">
+	<!-- 日记实体类映射 -->
+ 	<resultMap type="Diary" id="resultDiarys">
+ 		<id column="id" property="id" />
+ 		<result column="title" property="title" />
+ 		<result column="content" property="content" />
+ 		<result column="createTime" property="createTime" />
+ 	</resultMap>
+ 	<!-- 新增日记 -->
+ 	<insert id="addDiary" parameterType="Diary">
+ 		INSERT INTO  dia . diary 
+			( id ,
+			 title ,
+			 content ,
+			 createTime )
+		VALUES
+			(null,
+			#{title },
+			#{content },
+			#{createTime });
+ 	</insert>
+ 	<!-- 查询所有日记 -->
+	<select id="findAll" resultMap="resultDiarys">
+		select * from  dia . diary ;
+	</select>
+	<!-- 分页查询日记 -->
+	<select id="findAllPage" resultMap="resultDiarys" parameterType="com.diary.util.Pager">
+		select * from  dia . diary  order by createTime desc limit #{startRows},#{pagesize};
+	</select>
+	<!-- 查询单个日记 -->
+	<select id="findOne" parameterType="Diary" resultMap="resultDiarys">
+		select * from  dia . diary  d where d.id = #{id};
+	</select>
+	<!-- 修改日记  -->
+	<update id="update" parameterType="Diary">
+		UPDATE  dia . diary 
+		SET
+			 title  = #{title},
+			 content  = #{content}
+		WHERE  id  = #{id};
+	</update>
+	<!-- 删除日记 -->
+	<delete id="del" parameterType="Diary">
+		DELETE FROM  dia . diary  WHERE id = #{id};
+	</delete>
+	
+	
+	<select id="login" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select id,title,content from  diary
+	</select>
+</mapper>

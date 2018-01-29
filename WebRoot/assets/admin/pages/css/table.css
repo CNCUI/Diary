@@ -1,0 +1,189 @@
+::-moz-placeholder{color:#A9A9A9;}            
+::-webkit-input-placeholder{color:#A9A9A9;}     
+:-ms-input-placeholder{color:#A9A9A9;}  
+select{
+	color:#A9A9A9;
+}
+option{
+	color:black;
+}
+.form-group{
+	margin-top: 10px;
+	margin-right: 10px;
+}
+.form-group{
+	margin-top: 10px;
+}
+.table-simple{
+	font-size: 12px;
+	width: 800px;
+	margin: 0px;
+	padding: 0px;
+}
+.center{
+	text-align: center;
+}
+.left{
+	text-align: left;
+}
+.paddingLeft td{
+	text-align: left;
+	padding-left:3px;
+}
+.right{
+	text-align: right;
+	padding-right:1%;
+}
+.td-table{
+	font-size: 12px;
+	width: 400px;
+	margin-left:100px;
+	padding: 0px;
+	
+}
+.td-table td{
+	width: 50%;
+}
+.weight{     
+	font-weight: bolder;
+}
+.table-simple tr{
+	text-align: right;
+	vertical-align: middle;
+	height: 30px;
+}
+.table-simple td{
+	vertical-align: middle;
+	height: 45px;
+}
+.width-3{  
+	width: 3%;
+}
+.width-4{  
+	width: 4%;
+}
+.width-5{  
+	width: 5%;
+}
+.width-6{  
+	width: 6%;
+}
+.width-7{  
+	width: 7%;
+}
+.width-8{  
+	width: 8%;
+}
+.width-8{  
+	width: 8%;
+}
+.width-9{  
+	width: 9%;
+}
+.width-10{ 
+	width: 10%;
+}
+.width-11{  /**�п�*/
+	width: 11%;
+}
+.width-12{  /**�п�*/
+	width: 12%;
+}
+.width-13{  /**�п�*/
+	width: 13%;
+}
+.width-14{  /**�п�*/
+	width: 14%;
+}
+.width-15{  /**�п�*/
+	width: 15%;
+}
+.width-16{  /**�п�*/
+	width: 16%;
+}
+.width-17{  /**�п�*/
+	width: 17%;
+}
+.width-18{  /**�п�*/
+	width: 18%;
+}
+.width-20{  /**�п�*/
+	width: 20%;
+}
+.width-22{  /**�п�*/
+	width: 22%;
+}
+.width-24{  /**�п�*/
+	width: 24%;
+}
+.width-25{  /**�п�*/
+	width: 25%;
+}
+.width-26{  /**�п�*/
+	width: 26%;
+}
+.width-28{  /**�п�*/
+	width: 28%;
+}
+.width-30{  /**�п�*/
+	width: 30%;
+}
+.width-32{  /**�п�*/
+	width: 32%;
+}
+.width-33{  /**�п�*/
+	width: 33%;
+}
+.width-34{  /**�п�*/
+	width: 34%;
+}
+.width-35{  /**�п�*/
+	width: 35%;
+}
+.width-36{  /**�п�*/
+	width: 36%;
+}
+.width-37{  /**�п�*/
+	width: 37%;
+}
+.width-38{  /**�п�*/
+	width: 38%;
+}
+.width-39{  /**�п�*/
+	width: 39%;
+}
+.width-40{  /**�п�*/
+	width: 40%;
+}
+.width-100{  /**�п�*/
+	width: 100%;
+}
+.width-65{  /**�п�*/
+	width: 65%;
+}
+.span
+{
+	color: red;
+	height:100%;
+	line-height:70%;
+	padding-left: 5px;
+	vertical-align: middle;
+}
+#datou{
+	border:1px solid #ddd;
+}
+#bor-lt{
+	border-left-width: 1px;
+}
+.form-control-cxtj{
+	width: 150px;
+	height: 36px;
+}
+.custom.btn {
+  color: white;
+  background-color: #8080C0;
+}
+.custom.btn:hover, .custom.btn:focus, .custom.btn:active, .custom.btn.active {
+  color: white;
+  background-color: #7373B9;
+}

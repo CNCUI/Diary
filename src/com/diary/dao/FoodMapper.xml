@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 菜品 -->
+<mapper namespace="FoodMapper">
+	<!-- 管理端  查询菜品 -->
+	<select id="findFoodManegePageList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT
+			food.*, GROUP_CONCAT(type.code) as "typeCode",
+			GROUP_CONCAT(type. NAME) AS "typeName",
+			date_format(food.create_time,'%Y-%c-%d %h:%i:%s') as "createtime",
+			date_format(food.update_time,'%Y-%c-%d %h:%i:%s') as "updatetime"
+		FROM
+			food
+		LEFT JOIN food_type ON food.id = food_type.food_id
+		LEFT JOIN type ON food_type.type_id = type.code
+		GROUP BY
+			food.id
+	</select>
+	<select id="findFood" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT * from food where 1=1
+		<if test="name != null and name != '' ">
+			and name=#{name}
+		</if>
+		<if test="myid != null and myid != '' ">
+			and id !=#{myid}
+		</if>
+	</select>
+	<insert id="addFood" parameterType="java.util.HashMap">
+		insert into food(id,name,price,pic,dscri,create_time)
+		values(UUID(),#{name},#{price},#{file_path},#{dscri},NOW())
+	</insert>
+	<insert id="updateFood" parameterType="java.util.HashMap">
+		update food set 
+		name=#{name},price=#{price},pic=#{file_path},dscri=#{dscri},update_time=#{update_time} where 
+		id = #{food_id}
+	</insert>
+	<insert id="delFood" parameterType="java.util.HashMap">
+		delete from food where id in
+		<foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</insert>
+	
+	
+							<!-- front -->
+	<select id="findFoodPageList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT
+			*
+		FROM
+			food
+		LEFT JOIN food_type ON food.id = food_type.food_id
+		LEFT JOIN type ON food_type.type_id = type.code
+		WHERE
+			type. NAME = #{type}
+	</select>
+</mapper>
