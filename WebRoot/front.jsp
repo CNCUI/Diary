@@ -91,7 +91,7 @@
 				</div>
 				<ul class="user_left_bottom">
 					<li class="lwmenu">
-						<a class="lw start" url="stu/stuwork_init.htm" style="padding: 0;"><span class="ulb3">商品列表</span></a>
+						<a id="front_start" class="lw start" url="front/front_getFoodList.action" style="padding: 0;"><span class="ulb3">商品列表</span></a>
 					</li>
 					<li class="lwmenu">
 						<a class="lw notice" url="stu/tzgg_tzggInit.htm" style="padding: 0;"><span class="ulb8">通知公告</span></a>
@@ -152,7 +152,7 @@
 	
 function logout() {
 	$.getJSON(TRIG.PATH+'/frontend/logout.json','',function(data){
-		location.href = TRIG.PATH+'/frontend/login.htm';
+// 		location.href = TRIG.PATH+'/frontend/login.htm';
 	});
 }
 function getQueryString() {
@@ -223,6 +223,9 @@ jQuery(document).ready(function() {
 	};
 	
 	
+$(function(){
+	$("#front_start").click();
+})
 </script>
 
 </html>

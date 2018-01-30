@@ -131,7 +131,7 @@ TRIG.updateSuccessAlert = function(){
 };
 
 function openlogin() {
-	location.href = TRIG.PATH +  '/frontend/login.t';
+//	location.href = TRIG.PATH +  '/frontend/login.t';
 }
 
 
@@ -703,5 +703,4 @@ $(function(){
 		return data;
 	};
 	
-	TRIG.LOG.Info("© 北京数字佳信技术有限公司 http://www.shuzijiaxin.com");
 });

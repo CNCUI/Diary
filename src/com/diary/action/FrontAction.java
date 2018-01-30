@@ -25,6 +25,12 @@ public class FrontAction extends AdminAction{
 	@Autowired
 	private CommonService commonService;
 	
+	public String getFoodList(){
+		return "foodList";
+	}
+	
+	
+	
 	public String findFoodPageList(){
 		Map<String, Object> map = new HashMap<String, Object>(); 
         map.putAll(getParameters());

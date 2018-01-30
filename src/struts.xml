@@ -61,4 +61,10 @@
 			<result name="food">/WEB-INF/jsp/foodManager.jsp</result>
 		</action>
 	</package>
+	<package name="front" extends="struts-default" namespace="/front">
+		<action name="front_*" class="com.FrontAction" method="{1}">
+			<result name="foodList">/WEB-INF/jsp/front/foodList.jsp</result>
+		</action>
+	</package>
+	
 </struts>
