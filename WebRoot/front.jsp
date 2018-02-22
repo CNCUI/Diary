@@ -62,7 +62,7 @@
 </head>
 <body style="padding-bottom: 0px;padding-top: 110px;">
 	<div class="top top_nav" id="tbox1">
-		<img src="frontend/img/top.png" width="100%"/>
+		<img src="frontend/img/top2.png" width="100%"/>
 	</div>
 	<div class="clear"></div>
 	<div class="middle_box">
