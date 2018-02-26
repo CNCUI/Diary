@@ -1,5 +1,6 @@
 package com.diary.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -165,6 +166,48 @@ public class CommonServiceImpl implements CommonService{
 		IResult rs = new Result();
 		int i = commonDao.updatePassword(map);
 		rs.setSuccess(i>0);
+		return rs;
+	}
+
+	@Override
+	public IResult saveOrderFood(Map<String, String> savemap) {
+		IResult rs = new Result();
+		int i = commonDao.saveOrderFood(savemap);
+		rs.setSuccess(i>0);
+		return rs;
+	}
+
+	@Override
+	public IResult saveOrdering(Map<String, Object> savemap2) {
+		IResult rs = new Result();
+		int i = commonDao.saveOrdering(savemap2);
+		rs.setSuccess(i>0);
+		return rs;
+	}
+
+	@Override
+	public PageListResult frontOrderList(int page, int rows, Map<String, String> map) {
+		return new PageListResult(commonDao.frontOrderList(page, rows, map));
+	}
+
+	@Override
+	public Map<String, Object> updateMm(Map<String, String> updateMm) {
+		Map<String, Object> rs = new HashMap<String, Object>();
+		int i = commonDao.updateMm(updateMm);
+		rs.put("success", i>0);
+		return rs;
+	}
+
+	@Override
+	public Map<String, Object> getUserInfoById(Map<String, Object> param) {
+		return commonDao.getUserInfoById(param);
+	}
+
+	@Override
+	public Map<String, Object> updateInfo(Map<String, String> param) {
+		Map<String, Object> rs = new HashMap<String, Object>();
+		int i = commonDao.updateInfo(param);
+		rs.put("success", i>0);
 		return rs;
 	}
 

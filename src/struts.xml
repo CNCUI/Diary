@@ -64,6 +64,10 @@
 	<package name="front" extends="struts-default" namespace="/front">
 		<action name="front_*" class="com.FrontAction" method="{1}">
 			<result name="foodList">/WEB-INF/jsp/front/foodList.jsp</result>
+			<result name="todayOrderInit">/WEB-INF/jsp/front/todayOrderList.jsp</result>
+			<result name="historyOrderInit">/WEB-INF/jsp/front/historyOrderList.jsp</result>
+			<result name="updateMmInit">/WEB-INF/jsp/front/passwordUpdate.jsp</result>
+			<result name="updateInfoInit">/WEB-INF/jsp/front/personInfo.jsp</result>
 		</action>
 	</package>
 	

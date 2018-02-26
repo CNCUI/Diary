@@ -53,5 +53,17 @@ public interface CommonService {
 
 	IResult updatePassword(Map<String, String> map);
 
+	IResult saveOrderFood(Map<String, String> savemap);
+
+	IResult saveOrdering(Map<String, Object> savemap2);
+
+	PageListResult frontOrderList(int page, int rows, Map<String, String> map);
+
+	Map<String, Object> updateMm(Map<String, String> updateMm);
+
+	Map<String, Object> getUserInfoById(Map<String, Object> param);
+
+	Map<String, Object> updateInfo(Map<String, String> param);
+
 
 }

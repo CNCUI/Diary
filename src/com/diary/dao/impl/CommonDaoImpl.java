@@ -148,6 +148,40 @@ public class CommonDaoImpl extends ComDao implements CommonDao{
 		return getSqlSession().update("UserMapper.updatePassword", map);
 	}
 
+	@Override
+	public int saveOrderFood(Map<String, String> savemap) {
+		return getSqlSession().insert("FoodMapper.saveOrderFood", savemap);
+	}
+
+	@Override
+	public int saveOrdering(Map<String, Object> savemap2) {
+		return getSqlSession().insert("FoodMapper.saveOrdering", savemap2);
+	}
+
+	@Override
+	public PageTools frontOrderList(int page, int rows, Map<String, String> map) {
+		List list = getSqlSession().selectList("FoodMapper.frontOrderList",map);
+		int size = list.size();
+		int index = (page-1)*rows;
+		List d = list.subList(index, (index+rows)>size?size:(index+rows));
+		return new PageTools(page,rows,size,d);
+	}
+
+	@Override
+	public int updateMm(Map<String, String> updateMm) {
+		return getSqlSession().update("UserMapper.updateMm", updateMm);
+	}
+
+	@Override
+	public Map<String, Object> getUserInfoById(Map<String, Object> param) {
+		return getSqlSession().selectOne("UserMapper.getUserInfoById", param);
+	}
+
+	@Override
+	public int updateInfo(Map<String, String> param) {
+		return getSqlSession().update("UserMapper.updateInfo", param);
+	}
+
 
 
 

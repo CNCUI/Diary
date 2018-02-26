@@ -52,6 +52,18 @@ public interface CommonDao {
 
 	int updatePassword(Map<String, String> map);
 
+	int saveOrderFood(Map<String, String> savemap);
+
+	int saveOrdering(Map<String, Object> savemap2);
+
+	PageTools frontOrderList(int page, int rows, Map<String, String> map);
+
+	int updateMm(Map<String, String> updateMm);
+
+	Map<String, Object> getUserInfoById(Map<String, Object> param);
+
+	int updateInfo(Map<String, String> param);
+
 	
 
 

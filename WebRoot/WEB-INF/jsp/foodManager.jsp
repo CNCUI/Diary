@@ -59,7 +59,7 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" role="form" id="editForm">
-					<input type="text" name="food_id" id="food_id"/>
+					<input type="hidden" name="food_id" id="food_id"/>
 					<div class="form-group">
 						<label for="username" class="col-sm-2 control-label">菜品名称</label>
 						<div class="col-sm-10">
@@ -79,9 +79,6 @@
 						<div class="col-sm-10">
 							<select name="type" id="type" class="form-control select2">
 								<option value="">--请选择--</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
 							</select>
 						</div>
 					</div>
@@ -119,6 +116,16 @@ var url = {};
 var ttable = null;
 var tablerows = [];
 $(function(){
+	//type 类型
+	$.post("sys/manager_findTypePageList.action",function(redata){
+		var typed = redata.data;
+		var option = $("#type")[0].options;
+		for(var i=0;i<typed.length;i++){
+			var opt = new Option(typed[i].name,typed[i].code);
+			option.add(opt);
+		}
+	},"json");
+	
 	TRIG.LOADHTMLOrJs(function(){
 		//时间bootstrap-timepicker.js (5 matches)
 // 		$(".datetimepicker").datetimepicker(); // 日期+时分秒  
@@ -238,6 +245,7 @@ $(function(){
 				$("#pic").val(data.pic);
 				$("#img1").attr("src",data.pic);
 				$("#dscri").val(data.dscri);
+				$("#type").val(data.type);
 				$("#editModal").modal('show');
 			}else{
 				alert("请选择一条数据");

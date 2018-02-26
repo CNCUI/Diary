@@ -5,14 +5,13 @@
 	<!-- 管理端  查询菜品 -->
 	<select id="findFoodManegePageList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 		SELECT
-			food.*, GROUP_CONCAT(type.code) as "typeCode",
-			GROUP_CONCAT(type. NAME) AS "typeName",
+			food.*, 
+			type.name as "typeName",
 			date_format(food.create_time,'%Y-%c-%d %h:%i:%s') as "createtime",
 			date_format(food.update_time,'%Y-%c-%d %h:%i:%s') as "updatetime"
 		FROM
 			food
-		LEFT JOIN food_type ON food.id = food_type.food_id
-		LEFT JOIN type ON food_type.type_id = type.code
+		LEFT JOIN type ON food.type = type.code
 		GROUP BY
 			food.id
 	</select>
@@ -26,12 +25,14 @@
 		</if>
 	</select>
 	<insert id="addFood" parameterType="java.util.HashMap">
-		insert into food(id,name,price,pic,dscri,create_time)
-		values(UUID(),#{name},#{price},#{file_path},#{dscri},NOW())
+		insert into food(id,name,price,pic,dscri,create_time,type)
+		values(UUID(),#{name},#{price},#{file_path},#{dscri},NOW(),#{type})
 	</insert>
 	<insert id="updateFood" parameterType="java.util.HashMap">
 		update food set 
-		name=#{name},price=#{price},pic=#{file_path},dscri=#{dscri},update_time=#{update_time} where 
+		name=#{name},price=#{price},pic=#{file_path},dscri=#{dscri},update_time=#{update_time},
+		type=#{type}
+		where 
 		id = #{food_id}
 	</insert>
 	<insert id="delFood" parameterType="java.util.HashMap">
@@ -48,9 +49,35 @@
 			*
 		FROM
 			food
-		LEFT JOIN food_type ON food.id = food_type.food_id
-		LEFT JOIN type ON food_type.type_id = type.code
+		LEFT JOIN type ON food.type = type. CODE
 		WHERE
 			type. NAME = #{type}
+	</select>
+	
+	<insert id="saveOrderFood" parameterType="java.util.HashMap">
+		insert into order_food(id,order_id,food_id,num)
+		values(UUID(),#{order_id},#{food_id},#{num})
+	</insert>
+	
+	<insert id="saveOrdering" parameterType="java.util.HashMap">
+		insert into ordering(id,num,sumprice,user_name,phone,address,remarks,user_id,state,cerate_time)
+		values(#{id},#{num},#{sumprice},#{user_name},#{phone},#{address},#{remarks},#{user_id},#{state},NOW())
+	</insert>
+	
+	<select id="frontOrderList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from (SELECT
+			ordering.*,
+			GROUP_CONCAT(CONCAT(food.name,'(',order_food.num),')') AS "foods"
+		FROM
+			ordering
+		LEFT JOIN order_food ON ordering.id = order_food.order_id
+		LEFT JOIN food ON order_food.food_id = food.id
+		where 1=1
+		<if test="tody != null and tody  != '' ">
+			and DATE_FORMAT(NOW(),'%Y%m%d') like DATE_FORMAT(ordering.cerate_time,'%Y%m%d')
+		</if>
+		GROUP BY
+			ordering.id
+		) A where A.user_id = #{front_userId}
 	</select>
 </mapper>
