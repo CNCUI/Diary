@@ -158,6 +158,12 @@
 		<if test="type != null and type != '' ">
 			and type. NAME = #{type}
 		</if>
+		<if test="search_type != null and search_type != '' ">
+			and food.type = #{search_type}
+		</if>
+			<if test="search_name != null and search_name != '' ">
+			and food.name like '%${search_name}%' 
+		</if>
 	</select>
 	
 	<!-- 我的订单 -->

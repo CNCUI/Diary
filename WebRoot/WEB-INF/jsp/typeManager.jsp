@@ -54,7 +54,7 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" role="form" id="editForm">
-					<input type="text" name="type_id" id="type_id"/>
+					<input type="hidden" name="type_id" id="type_id"/>
 					<div class="form-group">
 						<label for="username" class="col-sm-2 control-label">编号</label>
 						<div class="col-sm-10">

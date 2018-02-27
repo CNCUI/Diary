@@ -6,7 +6,7 @@
 %>
 <html lang="en"><head>
 <meta charset="utf-8"/>
-<title></title>
+<title>晓涵火箭外卖前台</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> 
 <link href="assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
@@ -116,7 +116,7 @@
 
 	<div class="clear"></div>
 	<div class="footer">
-		<div style="position:fixed;bottom:0;background-color: red;margin-left: 35%;width:50%; z-index:9999">已选择：<br><span style="width:80%"  id="myorder"></span><button id="orderData" onclick="submitOrder(this)" style="margin-left: 70%">提交订单</button>&emsp;<button onclick="cancleOrder(this)">清空</button></div>
+		<div style="position:fixed;bottom:0;background-color: #8de9e9;margin-left: 35%;width:50%; z-index:9999">已选择：<br><span style="width:80%"  id="myorder"></span><button id="orderData" onclick="submitOrder(this)" style="margin-left: 70%">提交订单</button>&emsp;<button onclick="cancleOrder(this)">清空</button></div>
 		<img src="frontend/img/bottom.png" width="100%"/>
 	</div> 
 	
@@ -337,11 +337,15 @@ $(function(){
 
 function submitOrder(obj){
 	var param = $(obj).data("order");
-	console.info(param);
+	
 	if(typeof(param) == 'undefined'){
 		alert("请选择菜品");
 		return false;
 	}
+	for(var i=0;i<param.length;i++){
+		param[i].remark = $("#remark").val();
+	}
+	console.info(JSON.stringify(param));
 	$.post("front/front_submitOrder.action",{"param":JSON.stringify(param)},function(redata){
 		console.info(redata);
 		if(!redata.success){

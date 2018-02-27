@@ -1,11 +1,15 @@
 <%@ page language="java" pageEncoding="utf-8"%>
+<%String path = request.getContextPath(); %>
 <div style="display: none">
 	<table id="#trig-bmBmsj-table"></table>
 </div>
 <div class="row">
-	<div>	
-		类型：<input type="text" id="" name="" />
-		名称：<input type="text" id="" name="" />
+	<div style="margin-top: 20px">	
+		类型：<select style="width: 120px;height: 25px" name="search_type" id="search_type" class="form-control select2">
+				<option value="">--请选择--</option>
+			</select>
+		名称：<input type="text" id="search_name" name="search_name" />
+		<button onclick="frontinit()">搜索</button>
 	</div>
 	<div id="content" style="margin-top: 20px">
 	</div>
@@ -20,12 +24,22 @@
 		<input type="hidden" id="food_id" >
 		<button onclick="buy(this)" style="font-size: 13px">立即订购</button>
 	</div>
+	
 </div>
 <div class="trig-bottom"></div>
 
 <script>
 var url = {};
 $(function(){
+	$.post("front/front_findTypePageList.action",function(redata){
+		var typed = redata.data;
+		var option = $("#search_type")[0].options;
+		for(var i=0;i<typed.length;i++){
+			var opt = new Option(typed[i].name,typed[i].code);
+			option.add(opt);
+		}
+	},"json");
+	
 	TRIG.LOADHTMLOrJs(function(){
 		//对象定义
 		url = {
@@ -35,22 +49,30 @@ $(function(){
 				find : 'front/front_findFoodPageList.action',
 		};
 		
-		$.post(url.find,function(redata){
-			var redata = redata.data;
-			for(var i=0;i<redata.length;i++){
-				var cdiv = $("#clonediv").clone();
-				$(cdiv).find("[id=pic]").attr("src",redata[i].pic);
-				$(cdiv).find("[id=name]").text(redata[i].name);
-				$(cdiv).find("[id=price]").text(redata[i].price);
-				$(cdiv).find("[id=food_id]").val(redata[i].id);
-				$("#content").append(cdiv);
-			}
-		},"json")
-		
-		
-		showCookie();
+		frontinit();
     });
 });
+function frontinit(){
+	$("#content").html("");
+	var param = {
+		search_type : $("#search_type").val(),
+		search_name : $("#search_name").val()
+	}
+	$.post(url.find,param,function(redata){
+		var redata = redata.data;
+		for(var i=0;i<redata.length;i++){
+			var cdiv = $("#clonediv").clone();
+			$(cdiv).find("[id=pic]").attr("src",'<%=path%>'+redata[i].pic);
+			$(cdiv).find("[id=name]").text(redata[i].name);
+			$(cdiv).find("[id=price]").text(redata[i].price);
+			$(cdiv).find("[id=food_id]").val(redata[i].id);
+			$("#content").append(cdiv);
+		}
+	},"json")
+	
+	showCookie();
+	
+}
 function add(obj){
 	var val = $(obj).parent().find("input").eq(0).val();
 	var c = Number(val)+1;
@@ -73,6 +95,7 @@ function showCookie(){
 			numprice = Number(numprice) + Number(redata.data[i].price);
 		}
 		if(htm != ''){
+			htm += "<br>备注：<textarea id='remark' rows='4' cols='80'></textarea>";
 			htm += "<br>总价：¥"+numprice;
 		}
 		$("#myorder").html(htm);

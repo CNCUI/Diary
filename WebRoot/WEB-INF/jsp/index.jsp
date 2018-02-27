@@ -15,7 +15,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
     <head>
         <base href="<%=basePath%>">
         <meta charset="utf-8" />
-        <title>ccui</title>
+        <title>晓涵火箭外卖后台</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="description" />
@@ -55,7 +55,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
             <div class="header-inner">
                 <!-- BEGIN LOGO -->
                 <a class="navbar-brand" href="javascript:;">
-                    <img src="assets/img/logo.png" alt="logo" class="img-responsive" />
+<!--                     <img src="assets/img/logo.png" alt="logo" class="img-responsive" /> -->
                 </a>
                 <!-- END LOGO -->
                 <!-- BEGIN RESPONSIVE MENU TOGGLER -->
@@ -293,7 +293,6 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
         <!-- BEGIN FOOTER -->
         <div class="footer">
             <div class="footer-inner">
-                2014 &copy; ccui By top.
             </div>
             <div class="footer-tools">
                 <span class="go-top"><i class="fa fa-angle-up"></i></span>

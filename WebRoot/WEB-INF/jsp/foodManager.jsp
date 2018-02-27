@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="utf-8"%>
+<%String path = request.getContextPath(); %>
 <div class="row">
 	<div class="col-md-12">
 		<!-- BEGIN EXAMPLE TABLE PORTLET--> 
@@ -169,7 +170,7 @@ $(function(){
 				    		            	}
 				    		            }},
 				    		            {"data": "pic","render":function(data,type,row,mete){
-				    		            	return "<img style='width:234px;height:234px' src='"+data+"'></img>";
+				    		            	return "<img style='width:234px;height:234px' src='<%=path %>"+data+"'></img>";
 				    		            }},
 				    		            {"data": "dscri"},
 				    		            {"data": "createtime","render":function(data,type,row,mete){
@@ -243,7 +244,8 @@ $(function(){
 				$("#name").val(data.name);
 				$("#price").val(data.price);
 				$("#pic").val(data.pic);
-				$("#img1").attr("src",data.pic);
+				$("#img1").attr("src",'<%=path%>'+data.pic);
+				$("#file_path").val(data.pic);
 				$("#dscri").val(data.dscri);
 				$("#type").val(data.type);
 				$("#editModal").modal('show');

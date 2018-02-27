@@ -1,14 +1,14 @@
 <%@ page language="java" pageEncoding="utf-8"%>
-<div>
+<div style="margin-left:200px;margin-top: 44px">
 <form id="registForm">
 	<input type="hidden" name="p_userid" id="p_userid" />
-	<div style="font-size: 18px">用户名：<input type="text" name="p_username" id="p_username" /></div>
-	<div style="font-size: 18px">姓&emsp;名：<input type="text" name="p_realname" id="p_realname" /></div>
-	<div style="font-size: 18px">电&emsp;话：<input type="text" name="p_phone" id="p_phone" /></div>
-	<div style="font-size: 18px">地&emsp;址：<input type="text" name="p_address" id="p_address" /></div>
-	<div style="font-size: 18px">邮&emsp;箱：<input type="text" name="p_email" id="p_email" /></div>
+	<p style="font-size: 18px;">用户名：<input type="text" name="p_username" id="p_username" /></p><br>
+	<p style="font-size: 18px;">姓&emsp;名：<input type="text" name="p_realname" id="p_realname" /></p><br>
+	<p style="font-size: 18px;">电&emsp;话：<input type="text" name="p_phone" id="p_phone" /></p><br>
+	<p style="font-size: 18px;">地&emsp;址：<input type="text" name="p_address" id="p_address" /></p><br>
+	<p style="font-size: 18px;">邮&emsp;箱：<input type="text" name="p_email" id="p_email" /></p>
 </form>
-<button onclick="updateInfo()">修改</button>
+<button style="margin-left: 109px;margin-top: 20px;width: 63px;height: 30px;" onclick="updateInfo()">修改</button>
 </div>
 <script>
 $(function(){

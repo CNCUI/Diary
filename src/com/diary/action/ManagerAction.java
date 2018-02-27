@@ -279,7 +279,7 @@ public class ManagerAction extends AdminAction{
 		String sfzimg = map.get("imgstr");
 		String file_path_icard = "";
 		if(!"".equals(sfzimg)){
-			String sfzimgPath =  Base64SaveToFile.GenerateImage(sfzimg.substring(sfzimg.indexOf(",")+1,sfzimg.length()),"",path+Base64SaveToFile.createFolder(getRootPath(),"/Diary/uploadfiles/img/"));
+			String sfzimgPath =  Base64SaveToFile.GenerateImage(sfzimg.substring(sfzimg.indexOf(",")+1,sfzimg.length()),"",path+Base64SaveToFile.createFolder(getRootPath(),"/uploadfiles/img/"));
 			file_path_icard = sfzimgPath.replace(path, "");
 		}
 		Map<String,String> remap = new HashMap<String,String>();

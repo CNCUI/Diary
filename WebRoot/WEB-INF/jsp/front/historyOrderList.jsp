@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<!-- BEGIN EXAMPLE TABLE PORTLET--> 
-		<div class="trig-table" >
+		<div class="trig-table" style="margin-top: 28px">
 			<div class="portlet-body trig-table-body" >
 				<table class="table table-striped table-bordered table-hover" id="trig-bmBmsj-table">
 				<thead>
