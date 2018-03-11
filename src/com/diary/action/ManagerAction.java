@@ -49,6 +49,15 @@ public class ManagerAction extends AdminAction{
 	public String food(){
 		return "food";
 	}
+	public String comment(){
+		return "comment";
+	}
+	public String personInfoInit(){
+		return "personInfo";
+	}
+	public String pdUpdateInit(){
+		return "pdUpdate";
+	}
 	//查询用户列表
 	public String findUserPageList() throws IOException{
 		Map<String, Object> map = new HashMap<String, Object>(); 
@@ -327,5 +336,76 @@ public class ManagerAction extends AdminAction{
 			rs.setSuccess(false);
 		}
 		return renderResult(rs);
+	}
+	
+	
+	public String getUserInfoById(){
+		Map<String, Object> result = new HashMap<String, Object>();
+		ActionContext act = ActionContext.getContext();
+		String front_userId = String.valueOf(act.getSession().get("userId"));
+		if("null".equals(front_userId)){
+			result.put("success", false);
+			result.put("message", "请先登陆！");
+			return renderJson(JSONObject.fromObject(result).toString());
+		}
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userid", front_userId);
+		result = commonService.getUserInfoById(param);
+		result.put("success", true);
+		return renderJson(JSONObject.fromObject(result).toString());
+	}
+	public String updateInfo(){
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, String> param = getParameters();
+		result = commonService.updateInfo(param);
+		result.put("success", true);
+		return renderJson(JSONObject.fromObject(result).toString());
+	}
+	
+	public String updateMm(){
+		Map<String, Object> result = new HashMap<String, Object>();
+		ActionContext act = ActionContext.getContext();
+		String front_userId = String.valueOf(act.getSession().get("userId"));
+		if("null".equals(front_userId)){
+			result.put("success", false);
+			result.put("message", "请先登陆！");
+			return renderJson(JSONObject.fromObject(result).toString());
+		}
+		Map<String, String> qmap = new HashMap<String, String>();
+        qmap.put("userid", front_userId);
+        qmap.put("ymm", getParameters().get("ymm"));
+        List<Map<String,Object>> list = commonService.findUser(qmap);
+		if(list.size() > 0){
+			Map<String, String> updateMm = new HashMap<String, String>();
+			updateMm.put("userid", front_userId);
+			updateMm.put("password", getParameters().get("xmm"));
+			result = commonService.updateMm(updateMm);
+			result.put("message", "修改成功！");
+			return renderJson(JSONObject.fromObject(result).toString());
+		}else{
+			result.put("success", false);
+			result.put("message", "原密码不正确！");
+			return renderJson(JSONObject.fromObject(result).toString());
+		}
+	}
+	
+	public String findCommentPageList(){
+		Map<String, Object> map = new HashMap<String, Object>(); 
+        map.putAll(getParameters());
+        map.put("eva", "eva");
+        DataTablesResult dt = new DataTablesResult(commonService.findOrderPageList(getPage(), getRows(), map), getDraw());
+        return renderResult(dt);
+	}
+	public String commentReply(){
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, String> map = getParameters();
+		int i = commonService.commentReply(map);
+		result.put("success", i > 0);
+		if(i > 0){
+			result.put("message", "回复成功");
+		}else{
+			result.put("message", "回复失败");
+		}
+		return renderJson(JSONObject.fromObject(result).toString());
 	}
 }

@@ -66,12 +66,13 @@
 	
 	<select id="frontOrderList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 		select * from (SELECT
-			ordering.*,
+			ordering.*,evaluate.content,evaluate.reply,
 			GROUP_CONCAT(CONCAT(food.name,'(',order_food.num),')') AS "foods"
 		FROM
 			ordering
 		LEFT JOIN order_food ON ordering.id = order_food.order_id
 		LEFT JOIN food ON order_food.food_id = food.id
+		LEFT JOIN evaluate ON order_food.order_id = evaluate.order_id
 		where 1=1
 		<if test="tody != null and tody  != '' ">
 			and DATE_FORMAT(NOW(),'%Y%m%d') like DATE_FORMAT(ordering.cerate_time,'%Y%m%d')
@@ -80,4 +81,9 @@
 			ordering.id
 		) A where A.user_id = #{front_userId}
 	</select>
+	
+	
+	<insert id="submitPj" parameterType="java.util.HashMap">
+		insert into evaluate(id,order_id,user_id,content,create_time) VALUES(UUID(),#{pj_ddh_id},#{user_id},#{pj_pj},NOW())
+	</insert>
 </mapper>

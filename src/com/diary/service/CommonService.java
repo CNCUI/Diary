@@ -65,5 +65,9 @@ public interface CommonService {
 
 	Map<String, Object> updateInfo(Map<String, String> param);
 
+	IResult submitPj(Map<String, String> map);
+
+	int commentReply(Map<String, String> map);
+
 
 }

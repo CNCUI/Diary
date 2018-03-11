@@ -59,12 +59,17 @@
 	<!-- 管理端  查询订单列表 -->
 	<select id="findOrderPageList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 		SELECT
-			ordering.*,
+			ordering.*,evaluate.content,evaluate.reply,evaluate.id as "eva_id",
 			GROUP_CONCAT(CONCAT(food.name,'(',order_food.num),')') AS "foods"
 		FROM
 			ordering
 		LEFT JOIN order_food ON ordering.id = order_food.order_id
 		LEFT JOIN food ON order_food.food_id = food.id
+		LEFT JOIN evaluate ON order_food.order_id = evaluate.order_id
+		where 1=1
+		<if test="eva != null and eva != '' ">
+			and evaluate.id is not null
+		</if>
 		GROUP BY
 			ordering.id
 	</select>
@@ -199,5 +204,9 @@
 		email=#{p_email},
 		address=#{p_address}
 		where id = #{p_userid}
+	</update>
+	
+	<update id="commentReply" parameterType="java.util.HashMap">
+		update evaluate set reply = #{eva_reply} where id = #{eva_id}
 	</update>
 </mapper>

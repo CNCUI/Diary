@@ -211,6 +211,20 @@ public class CommonServiceImpl implements CommonService{
 		return rs;
 	}
 
+	@Override
+	public IResult submitPj(Map<String, String> map) {
+		IResult rs = new Result();
+		int i = commonDao.submitPj(map);
+		rs.setSuccess(i>0);
+		return rs;
+	}
+
+	@Override
+	public int commentReply(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return commonDao.commentReply(map);
+	}
+
 	
 
 }

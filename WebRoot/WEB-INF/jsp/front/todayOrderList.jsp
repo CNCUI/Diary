@@ -15,6 +15,7 @@
 					<th>总价</th>
 					<th>已选菜品</th>
 					<th>备注</th>
+					<th>评价</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -28,7 +29,36 @@
 </div>
 <div class="trig-bottom"></div>
 
-
+<!-- 模态框（Modal） -->
+<div  id="editModal" style="display:none;position:fixed;bottom:0;background-color: #c4baba;width:600px; z-index:9999;left:30%;top:30%;height:300px">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">
+					评价订单
+				</h4>
+			</div>
+			<div class="modal-body">
+				<div>
+					<div>
+						<input type="hidden"  id="pj_ddh_id" name="pj_ddh_id" />
+						&emsp;&emsp;订单号：&emsp;<span  id="pj_ddh" name="pj_ddh" ></span><br><br>
+					</div>
+					<div>
+						&emsp;&emsp;评价：&emsp;&emsp;<textarea rows="4" cols="60"  id="pj_pj" name="pj_pj" ></textarea><br><br>
+					</div>
+					<div>
+						&emsp;&emsp;商家回复：<textarea style="background-color:#d2c8c8" rows="4" cols="60"  id="pj_sjhf" name="pj_sjhf" readonly="readonly" /></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer" style="text-align: right;margin-top: 40px">
+				<input type="button" style="width: 80px;height: 30px" onclick="closePj()" value="关闭">
+				<input id="pjtjbtn" type="button" style="width: 80px;height: 30px" onclick="submitPj()" value="提交">
+			</div>
+		</div>
+	</div>
+</div>
 
 <script>
 var url = {};
@@ -80,7 +110,23 @@ $(function(){
 						    		            {"data": "foods","render":function(data,type,row,mete){
 						    		            	return data?data:"";
 						    		            }},
-						    		            {"data": "remarks"}
+						    		            {"data": "remarks"},
+						    		            {"data": "id","render":function(data,type,row,mete){
+						    		            	var num = row.num;
+						    		            	var id = row.id;
+						    		            	var content = (typeof(row.content) == 'undefined')?"":row.content;
+						    		            	var reply = (typeof(row.reply) == 'undefined')?"":row.reply;
+						    		            	if(row.state != '1'){
+						    		            		return "";
+						    		            	}else{
+						    		            		if(content != '' ){
+						    		            			return "<a onclick='yipingjia(\""+id+"\",\""+num+"\",\""+content+"\",\""+reply+"\")'>已评价</a>";
+						    		            		}else{
+								    		            	return "<a onclick='pingjia(\""+id+"\",\""+num+"\")'>评价</a>";
+						    		            		}
+						    		            		
+						    		            	}
+						    		            }}
 						    		],
 						    		//TODO 这里设置排序列，从0开始。。。
 			    					order: [[1,'desc']],
@@ -170,4 +216,45 @@ $(function(){
 	
 });
 
+function pingjia(id,num){
+	$("#pj_ddh_id").val("");
+	$("#pj_ddh").text("");
+	$("#pj_pj").val("");
+	$("#pj_sjhf").val("");
+	
+	$("#pj_ddh_id").val(id);
+	$("#pj_ddh").text(num);
+	
+	$("#pjtjbtn").show();
+	$("#editModal").show();
+}
+function yipingjia(id,num,content,reply){
+	$("#pj_ddh_id").val(id);
+	$("#pj_ddh").text(num);
+	$("#pj_pj").val(content);
+	$("#pj_sjhf").val(reply);
+	$("#pjtjbtn").hide();
+	$("#editModal").show();
+}
+function closePj(){
+	$("#editModal").hide();
+}
+function submitPj(){
+	if($("#pj_pj").val() == ''){
+		alert("请填写评价");
+		return false;
+	}
+	var param = {
+		pj_ddh_id : $("#pj_ddh_id").val(),
+		pj_pj : $("#pj_pj").val()
+	}
+	console.info(param);
+	$.post("front/front_submitPj.action",param,function(redata){
+		if(redata.success){
+			alert("提交成功");
+			$("#editModal").hide();
+			ttable.reload();
+		}
+	},"json")
+}
 </script>

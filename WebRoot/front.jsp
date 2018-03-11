@@ -197,6 +197,7 @@ function frontlogin(){
 			$("#realname").text(data.realname);
 			$("#phone").text(data.phone);
 			$("#address").text(data.address);
+			$("#orderaddress").val(data.address);
 			$("#dlxt").hide();
 			$("#tcxt").show();
 			alert("登陆成功");
@@ -342,8 +343,13 @@ function submitOrder(obj){
 		alert("请选择菜品");
 		return false;
 	}
+	if($("#realname").text() != '' && $("#orderaddress").val() == ''){
+		alert("请填写地址");
+		return false;
+	}
 	for(var i=0;i<param.length;i++){
 		param[i].remark = $("#remark").val();
+		param[i].orderaddress = $("#orderaddress").val();
 	}
 	console.info(JSON.stringify(param));
 	$.post("front/front_submitOrder.action",{"param":JSON.stringify(param)},function(redata){

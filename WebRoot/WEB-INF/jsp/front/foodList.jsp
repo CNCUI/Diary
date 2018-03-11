@@ -95,8 +95,11 @@ function showCookie(){
 			numprice = Number(numprice) + Number(redata.data[i].price);
 		}
 		if(htm != ''){
+			var rad = $("#address").text();
+			htm += "<br>地址：<input type='text' style='width:69%' id='orderaddress' value='"+rad+"'  /><br>";
 			htm += "<br>备注：<textarea id='remark' rows='4' cols='80'></textarea>";
 			htm += "<br>总价：¥"+numprice;
+			
 		}
 		$("#myorder").html(htm);
 		$("#orderData").data("order",redata.data)

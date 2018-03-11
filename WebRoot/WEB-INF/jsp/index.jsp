@@ -144,6 +144,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                                         菜品管理
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="sys/manager_comment.action" onclick="changeTitle('评论管理')">
+                                        评论管理
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -154,12 +159,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                             </a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="javascript:;">
+                                    <a href="sys/manager_personInfoInit.action">
                                         信息修改
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:;">
+                                    <a href="sys/manager_pdUpdateInit.action">
                                         密码修改
                                     </a>
                                 </li>

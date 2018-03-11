@@ -182,6 +182,16 @@ public class CommonDaoImpl extends ComDao implements CommonDao{
 		return getSqlSession().update("UserMapper.updateInfo", param);
 	}
 
+	@Override
+	public int submitPj(Map<String, String> map) {
+		return getSqlSession().insert("FoodMapper.submitPj",map);
+	}
+
+	@Override
+	public int commentReply(Map<String, String> map) {
+		return getSqlSession().update("UserMapper.commentReply", map);
+	}
+
 
 
 

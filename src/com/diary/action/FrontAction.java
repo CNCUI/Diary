@@ -162,6 +162,7 @@ public class FrontAction extends AdminAction{
 		//Ôö¼Ó¶©µ¥
 		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 		String remark = "";
+		String orderaddress = "";
 		int numprice = 0;
 		Map<String,String> map = getParameters();
 		JSONArray jr = JSONArray.fromObject(map.get("param"));
@@ -180,6 +181,7 @@ public class FrontAction extends AdminAction{
 			rs = commonService.saveOrderFood(savemap);
 			
 			remark = json.getString("remark");
+			orderaddress = json.getString("orderaddress");
 		}
 		
 		Map<String,Object> savemap2 = new HashMap<String,Object>();
@@ -196,7 +198,7 @@ public class FrontAction extends AdminAction{
 		savemap2.put("state", "0");
 		savemap2.put("user_name",result.get("realname"));
 		savemap2.put("phone", result.get("phone"));
-		savemap2.put("address", result.get("address"));
+		savemap2.put("address", orderaddress);
 		savemap2.put("remarks", remark);
 		rs = commonService.saveOrdering(savemap2);
 
@@ -332,5 +334,16 @@ public class FrontAction extends AdminAction{
         map.putAll(getParameters());
         DataTablesResult dt = new DataTablesResult(commonService.findTypePageList(getPage(), getRows(), map), getDraw());
         return renderResult(dt);
+	}
+	
+	
+	public String submitPj(){
+		IResult rs = new Result();
+		Map<String, String> map = getParameters();
+		ActionContext act = ActionContext.getContext();
+		String front_userId = String.valueOf(act.getSession().get("front_userId"));
+		map.put("user_id", map.get("front_userId"));
+		rs = commonService.submitPj(map);
+		return renderResult(rs);
 	}
 }

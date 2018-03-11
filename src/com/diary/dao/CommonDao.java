@@ -64,6 +64,10 @@ public interface CommonDao {
 
 	int updateInfo(Map<String, String> param);
 
+	int submitPj(Map<String, String> map);
+
+	int commentReply(Map<String, String> map);
+
 	
 
 
