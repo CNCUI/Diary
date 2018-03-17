@@ -69,5 +69,7 @@ public interface CommonService {
 
 	int commentReply(Map<String, String> map);
 
+	PageListResult findDailiJsPageList(int page, int rows, Map<String, Object> map);
+
 
 }

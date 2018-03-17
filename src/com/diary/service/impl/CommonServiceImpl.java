@@ -225,6 +225,11 @@ public class CommonServiceImpl implements CommonService{
 		return commonDao.commentReply(map);
 	}
 
+	@Override
+	public PageListResult findDailiJsPageList(int page, int rows, Map<String, Object> map) {
+		return new PageListResult(commonDao.findDailiJsPageList(page, rows, map));
+	}
+
 	
 
 }

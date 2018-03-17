@@ -62,6 +62,7 @@
 			<result name="comment">/WEB-INF/jsp/commentManager.jsp</result>
 			<result name="personInfo">/WEB-INF/jsp/personInfoManager.jsp</result>
 			<result name="pdUpdate">/WEB-INF/jsp/passwordUpdateManager.jsp</result>
+			<result name="jiesusnInit">/WEB-INF/jsp/jiesusn.jsp</result>
 		</action>
 	</package>
 	<package name="front" extends="struts-default" namespace="/front">

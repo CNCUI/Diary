@@ -149,6 +149,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
                                         评论管理
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="sys/manager_jiesusn.action" onclick="changeTitle('结算管理')">
+                                        结算管理
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 

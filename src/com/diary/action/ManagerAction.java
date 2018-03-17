@@ -408,4 +408,15 @@ public class ManagerAction extends AdminAction{
 		}
 		return renderJson(JSONObject.fromObject(result).toString());
 	}
+	
+	public String jiesusn(){
+		return "jiesusnInit";
+	}
+	//µ±»’Ω·À„
+	public String dailiJs(){
+		Map<String, Object> map = new HashMap<String, Object>(); 
+        map.putAll(getParameters());
+        DataTablesResult dt = new DataTablesResult(commonService.findDailiJsPageList(getPage(), getRows(), map), getDraw());
+        return renderResult(dt);
+	}
 }

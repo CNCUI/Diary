@@ -60,7 +60,8 @@
 	<select id="findOrderPageList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 		SELECT
 			ordering.*,evaluate.content,evaluate.reply,evaluate.id as "eva_id",
-			GROUP_CONCAT(CONCAT(food.name,'(',order_food.num),')') AS "foods"
+			GROUP_CONCAT(CONCAT(food.name,'(',order_food.num),')') AS "foods",
+			DATE_FORMAT(ordering.cerate_time,'%Y-%m-%d %H:%i:%s') as "cdate"
 		FROM
 			ordering
 		LEFT JOIN order_food ON ordering.id = order_food.order_id
@@ -72,6 +73,7 @@
 		</if>
 		GROUP BY
 			ordering.id
+		ORDER BY ordering.cerate_time desc
 	</select>
 	<!-- 管理端  修改订单状态 -->
 	<update id="updateOrderState" parameterType="java.util.HashMap">

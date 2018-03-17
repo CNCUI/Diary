@@ -192,6 +192,15 @@ public class CommonDaoImpl extends ComDao implements CommonDao{
 		return getSqlSession().update("UserMapper.commentReply", map);
 	}
 
+	@Override
+	public PageTools findDailiJsPageList(int page, int rows, Map<String, Object> map) {
+		List list = getSqlSession().selectList("FoodMapper.findDailiJsPageList",map);
+		int size = list.size();
+		int index = (page-1)*rows;
+		List d = list.subList(index, (index+rows)>size?size:(index+rows));
+		return new PageTools(page,rows,size,d);
+	}
+
 
 
 

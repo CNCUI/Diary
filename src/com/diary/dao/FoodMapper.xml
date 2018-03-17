@@ -86,4 +86,35 @@
 	<insert id="submitPj" parameterType="java.util.HashMap">
 		insert into evaluate(id,order_id,user_id,content,create_time) VALUES(UUID(),#{pj_ddh_id},#{user_id},#{pj_pj},NOW())
 	</insert>
+	
+	<select id="findDailiJsPageList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select A1.date,A1.`all`,A2.djd,A3.yxd,A4.qxdd,A3.sumprice from 
+			(
+			select count(1) AS "all",
+			DATE_FORMAT(ord.cerate_time,'%Y-%m-%d') AS "date"
+			from ordering ord
+			GROUP BY DATE_FORMAT(ord.cerate_time,'%y-%m-%d')
+			
+			)A1 left JOIN (
+			select count(1) AS "djd",
+			DATE_FORMAT(ord.cerate_time,'%Y-%m-%d') AS "date"
+			from ordering ord where ord.state = '0'
+			GROUP BY DATE_FORMAT(ord.cerate_time,'%y-%m-%d')
+			
+			)A2 ON A1.date = A2.date left JOIN (
+			select count(1) AS "yxd",
+			DATE_FORMAT(ord.cerate_time,'%Y-%m-%d') AS "date",
+			SUM(ord.sumprice) AS "sumprice"
+			from ordering ord where ord.state = '1'
+			GROUP BY DATE_FORMAT(ord.cerate_time,'%y-%m-%d')
+			
+			)A3 ON A1.date = A3.date left JOIN (
+			select count(1) AS "qxdd",
+			DATE_FORMAT(ord.cerate_time,'%Y-%m-%d') AS "date"
+			from ordering ord where ord.state = '2'
+			GROUP BY DATE_FORMAT(ord.cerate_time,'%Y-%m-%d')
+			
+			)A4 ON A1.date = A4.date
+			order by A1.date desc
+	</select>
 </mapper>

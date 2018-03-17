@@ -68,6 +68,8 @@ public interface CommonDao {
 
 	int commentReply(Map<String, String> map);
 
+	PageTools findDailiJsPageList(int page, int rows, Map<String, Object> map);
+
 	
 
 

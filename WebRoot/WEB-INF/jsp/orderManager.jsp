@@ -33,6 +33,7 @@
 					<th>总价</th>
 					<th>已选菜品</th>
 					<th>备注</th>
+					<th>下单时间</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -168,7 +169,8 @@ $(function(){
 				    		            {"data": "foods","render":function(data,type,row,mete){
 				    		            	return data?data:"";
 				    		            }},
-				    		            {"data": "remarks"}
+				    		            {"data": "remarks"},
+				    		            {"data": "cdate"}
 				    		],
 				    		//TODO 这里设置排序列，从0开始。。。
 	    					order: [[1,'desc']],
