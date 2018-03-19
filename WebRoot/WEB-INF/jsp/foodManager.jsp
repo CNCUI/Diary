@@ -72,7 +72,7 @@
 						<label for="realname" class="col-sm-2 control-label">单价</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="price" name="price"
-								   placeholder="">
+								   placeholder="" onkeyup="regNum(this)">
 						</div>
 					</div>
 					<div class="form-group">
@@ -356,5 +356,12 @@ function compress(img, width, height, ratio){
 	ctx.drawImage(img, 0, 0, width, height);
 	img64 = canvas.toDataURL("image/jpeg", ratio);
 	return img64;
-};
+}
+
+function regNum(ttt){
+	var tt = $(ttt).val();
+	if(tt == "" || isNaN(tt)){
+		$(ttt).val("");
+	}
+}
 </script>
